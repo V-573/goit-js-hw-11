@@ -1,4 +1,5 @@
 let page = 1; // Valor inicial de la paginación
+let totalHits = 0; // Variable para almacenar el total de imágenes encontradas
 
 document.getElementById('search-form').addEventListener('submit', function (e) {
   e.preventDefault();
@@ -23,6 +24,7 @@ document.getElementById('search-form').addEventListener('submit', function (e) {
 
       // Verificar si hay resultados
       if (data.hits.length > 0) {
+        totalHits = data.totalHits; // Almacenar el total de imágenes encontradas
         displayResults(data.hits);
 
         // Mostrar el botón de carga más
@@ -38,7 +40,7 @@ document.getElementById('search-form').addEventListener('submit', function (e) {
         document.getElementById('notification').innerHTML = "We're sorry, but you've reached the end of search results.";
       } else {
         // Limpiar la notificación si hay más resultados
-        document.getElementById('notification').innerHTML = '';
+        document.getElementById('notification').innerHTML = `Hooray! We found ${totalHits} images.`;
       }
     })
     .catch(error => console.error('Error:', error));
@@ -74,20 +76,22 @@ document.getElementById('load-more').addEventListener('click', function () {
     .catch(error => console.error('Error:', error));
 });
 
-
 function clearGallery() {
   const gallery = document.querySelector('.gallery');
   gallery.innerHTML = '';
 }
 
 function displayResults(images) {
-  const gallery = document.querySelector('.gallery');
+
+const gallery = document.querySelector('.gallery');
 
   images.forEach(image => {
     const card = document.createElement('div');
     card.classList.add('photo-card');
     card.innerHTML = `
-      <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
+      <a href="${image.largeImageURL}" data-lightbox="gallery">
+        <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
+      </a>
       <div class="info">
         <p class="info-item"><b>Likes:</b> ${image.likes}</p>
         <p class="info-item"><b>Views:</b> ${image.views}</p>
@@ -97,7 +101,15 @@ function displayResults(images) {
     `;
     gallery.appendChild(card);
   });
+
+  // Inicializar SimpleLightbox después de agregar las imágenes
+  const lightbox = new SimpleLightbox('[data-lightbox="gallery"]');
 }
+
+
+
+
+
 
 function displayNoResults() {
   const gallery = document.querySelector('.gallery');
