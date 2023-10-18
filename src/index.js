@@ -74,6 +74,7 @@ document.getElementById('load-more').addEventListener('click', function () {
     .catch(error => console.error('Error:', error));
 });
 
+
 function clearGallery() {
   const gallery = document.querySelector('.gallery');
   gallery.innerHTML = '';
