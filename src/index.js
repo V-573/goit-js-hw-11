@@ -1,13 +1,18 @@
+let page = 1; // Valor inicial de la paginación
+
 document.getElementById('search-form').addEventListener('submit', function (e) {
   e.preventDefault();
+
+  // Resetear la página al buscar una nueva palabra clave
+  page = 1;
 
   const searchQuery = document.querySelector('input[name="searchQuery"]').value;
 
   // Tu clave de acceso de Pixabay
   const apiKey = '40114076-6792fe4ed8fc0cf826901eacd';
 
-  // Construir la URL de la API de Pixabay
-  const apiUrl = `https://pixabay.com/api/?key=${apiKey}&q=${encodeURIComponent(searchQuery)}`;
+  // Construir la URL de la API de Pixabay con paginación
+  const apiUrl = `https://pixabay.com/api/?key=${apiKey}&q=${encodeURIComponent(searchQuery)}&page=${page}&per_page=40`;
 
   // Realizar la solicitud HTTP
   fetch(apiUrl)
@@ -19,8 +24,51 @@ document.getElementById('search-form').addEventListener('submit', function (e) {
       // Verificar si hay resultados
       if (data.hits.length > 0) {
         displayResults(data.hits);
+
+        // Mostrar el botón de carga más
+        document.getElementById('load-more').style.display = 'block';
       } else {
         displayNoResults();
+      }
+
+      // Verificar si se han alcanzado todos los resultados
+      if (data.totalHits <= page * 40) {
+        // Ocultar el botón de carga más y mostrar notificación
+        document.getElementById('load-more').style.display = 'none';
+        document.getElementById('notification').innerHTML = "We're sorry, but you've reached the end of search results.";
+      } else {
+        // Limpiar la notificación si hay más resultados
+        document.getElementById('notification').innerHTML = '';
+      }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+document.getElementById('load-more').addEventListener('click', function () {
+  page++;
+
+  const searchQuery = document.querySelector('input[name="searchQuery"]').value;
+
+  // Tu clave de acceso de Pixabay
+  const apiKey = '40114076-6792fe4ed8fc0cf826901eacd';
+
+  // Construir la URL de la API de Pixabay con paginación
+  const apiUrl = `https://pixabay.com/api/?key=${apiKey}&q=${encodeURIComponent(searchQuery)}&page=${page}&per_page=40`;
+
+  // Realizar la solicitud HTTP
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      // Verificar si hay resultados
+      if (data.hits.length > 0) {
+        displayResults(data.hits);
+      }
+
+      // Verificar si se han alcanzado todos los resultados
+      if (data.totalHits <= page * 40) {
+        // Ocultar el botón de carga más y mostrar notificación
+        document.getElementById('load-more').style.display = 'none';
+        document.getElementById('notification').innerHTML = "We're sorry, but you've reached the end of search results.";
       }
     })
     .catch(error => console.error('Error:', error));

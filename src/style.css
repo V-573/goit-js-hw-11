@@ -27,3 +27,13 @@
     .info-item {
       margin: 5px 0;
     }
+
+     .notification {
+      margin-top: 20px;
+      color: red;
+    }
+
+    .load-more {
+      display: none;
+      margin-top: 10px;
+    }
