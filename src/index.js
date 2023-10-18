@@ -13,6 +13,9 @@ document.getElementById('search-form').addEventListener('submit', function (e) {
   fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
+      // Limpiar la galería antes de mostrar nuevos resultados
+      clearGallery();
+
       // Verificar si hay resultados
       if (data.hits.length > 0) {
         displayResults(data.hits);
@@ -23,24 +26,31 @@ document.getElementById('search-form').addEventListener('submit', function (e) {
     .catch(error => console.error('Error:', error));
 });
 
+function clearGallery() {
+  const gallery = document.querySelector('.gallery');
+  gallery.innerHTML = '';
+}
+
 function displayResults(images) {
-  const resultsContainer = document.getElementById('results');
-  resultsContainer.innerHTML = '';
+  const gallery = document.querySelector('.gallery');
 
   images.forEach(image => {
     const card = document.createElement('div');
+    card.classList.add('photo-card');
     card.innerHTML = `
-      <img src="${image.webformatURL}" alt="${image.tags}">
-      <p>Likes: ${image.likes}</p>
-      <p>Views: ${image.views}</p>
-      <p>Comments: ${image.comments}</p>
-      <p>Downloads: ${image.downloads}</p>
+      <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
+      <div class="info">
+        <p class="info-item"><b>Likes:</b> ${image.likes}</p>
+        <p class="info-item"><b>Views:</b> ${image.views}</p>
+        <p class="info-item"><b>Comments:</b> ${image.comments}</p>
+        <p class="info-item"><b>Downloads:</b> ${image.downloads}</p>
+      </div>
     `;
-    resultsContainer.appendChild(card);
+    gallery.appendChild(card);
   });
 }
 
 function displayNoResults() {
-  const resultsContainer = document.getElementById('results');
-  resultsContainer.innerHTML = '<p>Sorry, there are no images matching your search query. Please try again.</p>';
+  const gallery = document.querySelector('.gallery');
+  gallery.innerHTML = '<p>Sorry, there are no images matching your search query. Please try again.</p>';
 }
