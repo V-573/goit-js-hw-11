@@ -1,5 +1,6 @@
 import axios, { isCancel, AxiosError } from 'axios';
-import SimpleLightbox from 'simplelightbox';
+// import SimpleLightbox from 'simplelightbox';
+import Notiflix from 'notiflix';
 
 let page = 1; // Valor inicial de la paginación
 let totalHits = 0; // Variable para almacenar el total de imágenes encontradas
@@ -26,7 +27,7 @@ let totalHits = 0; // Variable para almacenar el total de imágenes encontradas
           // Mostrar notificación si no se encontraron imágenes
           document.querySelector('.gallery').innerHTML = '<p>Sorry, there are no images matching your search query. Please try again.</p>';
       
-      
+         Notiflix.Notify.failure('Error en la solicitud');
       
           } else {
               console.log(response.data.hits);
@@ -52,7 +53,7 @@ let totalHits = 0; // Variable para almacenar el total de imágenes encontradas
         
         
       .catch(function (error) {
-        console.error('Error en la solicitud:', error);
+        Notiflix.Notify.failure('Error en la solicitud :(', error);
       });
   });
 
