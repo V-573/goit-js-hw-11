@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Estilos para mejorar la presentación de las tarjetas */
     .gallery {
       display: flex;
@@ -37,3 +38,41 @@
       display: none;
       margin-top: 10px;
     }
+=======
+/* Estilos CSS para la galería y las tarjetas de imagen */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.photo-card {
+  width: 200px; /* Ancho fijo para las tarjetas de imagen */
+  height: 100%; /* Altura fija para las tarjetas de imagen (puedes ajustar esto según tus preferencias) */
+  margin: 10px;
+}
+
+.photo-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover; /* Para mantener la relación de aspecto y rellenar la caja */
+}
+
+.info {
+  text-align: center;
+}
+
+.info-item {
+  margin: 5px 0;
+}
+
+.load-more {
+  display: none;
+  margin-top: 10px;
+}
+.search-form{
+    text-align: center;
+    padding: 30px;
+    background-color:#1315aeb4;
+}
+>>>>>>> a8faa0086c451545d1a5cbb4098c1c69033ae8ba
