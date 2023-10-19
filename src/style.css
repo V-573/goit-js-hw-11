@@ -24,3 +24,8 @@
 .info-item {
   margin: 5px 0;
 }
+
+.load-more {
+  display: none;
+  margin-top: 10px;
+}
