@@ -45,35 +45,53 @@ let totalHits = 0; // Variable para almacenar el total de imágenes encontradas
               };
               
               displayResults(response.data.hits);
-              
-
-
-       
-            
-        
-          
-           
-            
-            
+                          
           }
-          
-
-   
-            
-         
-
+       
       })
         
         
       .catch(function (error) {
         console.error('Error en la solicitud:', error);
       });
-
-
-
-
   });
 
+
+
+document.getElementById('load-more').addEventListener('click', function () {
+    page++;
+
+
+    // Obtener la consulta de búsqueda
+    const searchQuery = document.querySelector('input[name="searchQuery"]').value;
+
+   
+
+    // Realizar la solicitud a la API de Pixabay utilizando Axios
+    axios.get(`https://pixabay.com/api/?key=40114076-6792fe4ed8fc0cf826901eacd&q=${searchQuery}&page=${page}&per_page=40`)
+        .then(function (response) {
+            
+            if (response.data.hits.length > 0) {
+            console.log(response.data.hits)
+                displayResults(response.data.hits);
+            }
+// Verificar si se han alcanzado todos los resultados
+      if (response.data.totalHits <= page * 40) {
+        // Ocultar el botón de carga más y mostrar notificación
+        document.getElementById('load-more').style.display = 'none';
+        document.getElementById('notification').innerHTML = "We're sorry, but you've reached the end of search results.";
+      }
+
+
+
+ })
+        
+        
+      .catch(function (error) {
+        console.error('Error en la solicitud:', error);
+      });
+
+});
 
 
 
@@ -102,4 +120,4 @@ const gallery = document.querySelector('.gallery');
 
   // Inicializar SimpleLightbox después de agregar las imágenes
   const lightbox = new SimpleLightbox('[data-lightbox="gallery"]');
-}
+};
