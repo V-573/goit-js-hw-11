@@ -28,10 +28,25 @@
 
 .load-more {
   display: none;
-  margin-top: 10px;
+  margin: 0 auto;
+  /* Otros estilos opcionales */
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.load-more:hover {
+  background-color: #0056b3;
 }
 .search-form{
     text-align: center;
     padding: 30px;
     background-color:#1315aeb4;
 }
+
+
