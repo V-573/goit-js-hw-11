@@ -2,19 +2,19 @@
 .gallery {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start; /* Cambiamos de 'space-around' a 'flex-start' */
+  justify-content: flex-start;
 }
 
 .photo-card {
-  width: 200px;
+  width: 200px; /* Ancho fijo para las tarjetas de imagen */
+  height: 100%; /* Altura fija para las tarjetas de imagen (puedes ajustar esto según tus preferencias) */
   margin: 10px;
 }
 
 .photo-card img {
   width: 100%;
-  height: auto;
-  max-width: 200px; /* Limitamos el ancho de las imágenes a 200px */
-  max-height: 200px; /* Limitamos la altura de las imágenes a 200px */
+  height: 200px;
+  object-fit: cover; /* Para mantener la relación de aspecto y rellenar la caja */
 }
 
 .info {
