@@ -35,7 +35,7 @@ let totalHits = 0; // Variable para almacenar el total de imágenes encontradas
                 if (response.data.totalHits  > 40 ) {
     
                  
-                    document.getElementById('notification').textContent = `guaw! We found ${totalHits} images`;
+                    document.getElementById('notification').textContent = `Hooray! We found ${totalHits} images`;
 
                     // aparece el boton para cargar mas: 
                 
@@ -74,6 +74,14 @@ document.getElementById('load-more').addEventListener('click', function () {
             if (response.data.hits.length > 0) {
             console.log(response.data.hits)
                 displayResults(response.data.hits);
+                const { height: cardHeight } = document
+  .querySelector(".gallery")
+  .firstElementChild.getBoundingClientRect();
+
+window.scrollBy({
+  top: cardHeight * 2,
+  behavior: "smooth",
+});
             }
 // Verificar si se han alcanzado todos los resultados
       if (response.data.totalHits <= page * 40) {
