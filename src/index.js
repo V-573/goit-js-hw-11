@@ -1,14 +1,20 @@
 import axios, { isCancel, AxiosError } from 'axios';
 
+let page = 1; // Valor inicial de la paginación
+let totalHits = 0; // Variable para almacenar el total de imágenes encontradas
+
 // Manejar el envío del formulario
   document.getElementById('search-form').addEventListener('submit', function (event) {
-    event.preventDefault(); // Evitar el envío del formulario tradicional
+      event.preventDefault(); // Evitar el envío del formulario tradicional
+        // Resetear la página al buscar una nueva palabra clave
+  page = 1;
+
 
     // Obtener la consulta de búsqueda
     const searchQuery = document.querySelector('input[name="searchQuery"]').value;
 
     // Realizar la solicitud a la API de Pixabay utilizando Axios
-    axios.get(`https://pixabay.com/api/?key=40114076-6792fe4ed8fc0cf826901eacd&q=${searchQuery}`)
+    axios.get(`https://pixabay.com/api/?key=40114076-6792fe4ed8fc0cf826901eacd&q=${searchQuery}&page=${page}&per_page=40`)
       .then(function (response) {
         // Limpiar la galería antes de agregar nuevas tarjetas de imagen
         document.querySelector('.gallery').innerHTML = '';
