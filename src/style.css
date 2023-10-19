@@ -1,0 +1,26 @@
+/* Estilos CSS para la galería y las tarjetas de imagen */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Cambiamos de 'space-around' a 'flex-start' */
+}
+
+.photo-card {
+  width: 200px;
+  margin: 10px;
+}
+
+.photo-card img {
+  width: 100%;
+  height: auto;
+  max-width: 200px; /* Limitamos el ancho de las imágenes a 200px */
+  max-height: 200px; /* Limitamos la altura de las imágenes a 200px */
+}
+
+.info {
+  text-align: center;
+}
+
+.info-item {
+  margin: 5px 0;
+}
