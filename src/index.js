@@ -74,6 +74,8 @@ document.getElementById('load-more').addEventListener('click', function () {
             if (response.data.hits.length > 0) {
             console.log(response.data.hits)
                 displayResults(response.data.hits);
+
+                // activo scroll que desplaza las imagenes "automaticamente"
                 const { height: cardHeight } = document
   .querySelector(".gallery")
   .firstElementChild.getBoundingClientRect();
